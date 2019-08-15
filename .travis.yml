@@ -31,7 +31,7 @@ deploy:
   provider: pages
   local_dir: public
   skip_cleanup: true
-  github_token: $DEPLOY_TOKEN
+  github_token: $GITHUB_TOKEN
   keep_history: true
   on:
     branch: master
