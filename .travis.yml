@@ -31,6 +31,6 @@ after_success:
   # - git config --global user.name "Shichao_wong"
   # - git config --global user.email "shichao_wong@foxmail.com"
   # - sed -i'' "/^ *repo/s~github\.com~${DEPLOY_TOKEN}@github.com~" _config.yml
-  - sed -i'' "s~https://github.com/ChaoFTic/chaoftic.github.io.git~https://${GITHUB_DEPLOY_TOKEN}@github.com/ChaoFTic/chaoftic.github.io.git~" _config.yml
+  - sed -i'' "s~https://github.com/ChaoFTic/chaoftic.github.io.git~https://${DEPLOY_TOKEN}@github.com/ChaoFTic/chaoftic.github.io.git~" _config.yml
   - hexo deploy
 # E: Build LifeCycle
