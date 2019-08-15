@@ -84,5 +84,5 @@ theme: chic
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/ChaoFTic/chaoftic.github.io.git
+  repo: https://$DEPLOY_TOKEN@github.com/ChaoFTic/chaoftic.github.io.git
   branch: gh-pages
