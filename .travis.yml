@@ -1,25 +1,16 @@
 language: node_js
 node_js: stable
 
-# assign build branches
 branches:
   only:
     - master
 
-# cache this directory
 cache:
   directories:
     - node_modules
 
-# S: Build Lifecycle
 before_install:
-  # - openssl aes-256-cbc -K $encrypted_e7485d57104a_key -iv $encrypted_e7485d57104a_iv -in ./.travis/id_rsa.enc -out ~/.ssh/id_rsa -d
-  # - chmod 600 ~/.ssh/id_rsa
-  # - eval $(ssh-agent)
-  # - ssh-add ~/.ssh/id_rsa
-  # - cp .travis/ssh_config ~/.ssh/config
   - npm install -g hexo-cli # 安装 hexo
-  # - git clone -b mod https://github.com/ChaoFTic/hexo-theme-Chic.git themes/chic
 
 install:
   - npm install # 安装 package.json 中的插件
@@ -36,11 +27,4 @@ deploy:
   on:
     branch: master
   verbose: true
-
-# after_success:
-  # - git config --global user.name "Shichao_wong"
-  # - git config --global user.email "shichao_wong@foxmail.com"
-  # - sed -i'' "/^ *repo/s~github\.com~${DEPLOY_TOKEN}@github.com~" _config.yml
-  # - sed -i'' "s~https://github.com/ChaoFTic/chaoftic.github.io.git~https://${DEPLOY_TOKEN}:x-oauth-basic@github.com/ChaoFTic/chaoftic.github.io.git~" _config.yml
-  # - hexo deploy
-# E: Build LifeCycle
+  
