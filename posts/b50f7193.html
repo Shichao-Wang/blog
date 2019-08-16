@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+
+<title>Hexo博客搭建与Github Pages部署 | Hexo</title>
+
+
+
+    <link rel="icon" href="/blog/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/blog/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/blog/js/script.js"></script>
+    
+    <script src="/blog/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/blog/">ChaoFTic&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/blog/archives">Posts</a>
+                
+                    <a class="menu-item" href="/blog/category">Categories</a>
+                
+                    <a class="menu-item" href="/blog/tag">Tags</a>
+                
+                    <a class="menu-item" href="/blog/about">About</a>
+                
+                <!-- <input id="switch_default" type="checkbox" class="switch_default"> -->
+                <!-- <label for="switch_default" class="toggleBtn"></label> -->
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/blog/">ChaoFTic&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/blog/archives">Posts</a>
+                
+                    <a class="menu-item" href="/blog/category">Categories</a>
+                
+                    <a class="menu-item" href="/blog/tag">Tags</a>
+                
+                    <a class="menu-item" href="/blog/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Hexo博客搭建与Github Pages部署</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Shichao Wong</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">八月 16, 2019&nbsp;&nbsp;18:18:24</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>最近两天用Hexo和Github Pages给自己搭建了一个博客，希望能够记录一些科研方面的东西吧。感觉内容的主要都是论文分析和代码实现。希望自己能够坚持吧。</p>
+<p>最后搭建的成果是建立的一个名为<code>blog</code>的代码仓库，其中<code>master</code>分支存储了我们博客的所有源码，<code>gh-pages</code>分支存储了我们发布的Github Pages，将所有的源码存储在<code>master</code>分支是为了，方便我们在不同的机器上发布博客。同时，配合<code>Travis</code>这个<strong>持续集成工具</strong>，我们的写作流程就变成了：clone<code>master</code>分支的代码；撰写；push到github仓库。<code>Travis</code>能够自动检测<code>master</code>分支上的push操作，并将新的内容发布到<code>gh-pages</code>分支。</p>
+<p>现在就让我们开始吧！</p>
+<h1 id="Hexo-安装与基本使用"><a href="#Hexo-安装与基本使用" class="headerlink" title="Hexo 安装与基本使用"></a><code>Hexo</code> 安装与基本使用</h1><p>Hexo是什么就不多介绍了，相信能够看到这篇文章的都是搜索Hexo进来的</p>
+<p>首先我们打开<code>Hexo</code>的<a href="https://hexo.io/zh-cn/index.html" target="_blank" rel="noopener">官方网站</a>，滚到下方我们就看到5行代码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line">hexo init blog</span><br><span class="line"><span class="built_in">cd</span> blog</span><br><span class="line">npm install</span><br><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+
+<p>是的，敲入这五行代码后你就能看到</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g61qhcivo6j30ze03cgmm.jpg" alt="image-20190816191622354"></p>
+<p>打开<a href="http://localhost:4000之后你就能看到你的博客首页啦" target="_blank" rel="noopener">http://localhost:4000之后你就能看到你的博客首页啦</a></p>
+<p>Hexo的其他操作，还请访问<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官方文档</a></p>
+<h1 id="博客页面发布"><a href="#博客页面发布" class="headerlink" title="博客页面发布"></a>博客页面发布</h1><p>如果不需要将博客源码一并保存的话，此时可以使用<code>hexo-deployer-git</code>工具来部署博客，详见<a href="https://hexo.io/zh-cn/docs/deployment.html#Git" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/deployment.html#Git</a></p>
+<p>而我们需要保存博客源码，并且使用<code>Travis</code>将静态页面自动部署到<code>gh-pages</code>分支。此时我选择的部署工具是<code>Travis</code>自带的Github Pages部署工具。</p>
+<h2 id="配置Travis"><a href="#配置Travis" class="headerlink" title="配置Travis"></a>配置Travis</h2><p><code>Travis</code>与<code>Github</code>的集成较好，我们只需要登录<code>Travis CI</code>的官网，使用Github登录并将对应<code>repo</code>的开关打开即可。</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g61r22bkawj310g0h275x.jpg" alt="image-20190816193618791"></p>
+<p>我们在项目中加入一个名为<code>.travis.yml</code>的文件，并将以下内容加入即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">language:</span> <span class="string">node_js</span> <span class="comment"># 使用的语言为javaScript</span></span><br><span class="line"><span class="attr">node_js:</span> <span class="string">stable</span> <span class="comment"># node_js 的版本</span></span><br><span class="line"></span><br><span class="line"><span class="attr">branches:</span> <span class="comment"># 监视的分支，此处为master</span></span><br><span class="line"><span class="attr">  only:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">master</span></span><br><span class="line"></span><br><span class="line"><span class="attr">cache:</span> <span class="comment"># 缓存的目录，目的是为了加快部署速度</span></span><br><span class="line"><span class="attr">  directories:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">node_modules</span></span><br><span class="line"></span><br><span class="line"><span class="attr">before_install:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="string">install</span> <span class="bullet">-g</span> <span class="string">hexo-cli</span> <span class="comment"># 安装 hexo</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="string">install</span> <span class="comment"># 安装 package.json 中的插件</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">hexo</span> <span class="string">generate</span> <span class="comment"># 生成静态文件</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span> <span class="comment"># 部署</span></span><br><span class="line"><span class="attr">  provider:</span> <span class="string">pages</span></span><br><span class="line"><span class="attr">  local_dir:</span> <span class="string">public/</span> <span class="comment"># 静态文件目录，hexo的静态文件默认生成在public目录下</span></span><br><span class="line"><span class="attr">  skip_cleanup:</span> <span class="literal">true</span>  </span><br><span class="line"><span class="attr">  github_token:</span> <span class="string">$GITHUB_TOKEN</span> <span class="comment"># github 密钥 部署时需要该密钥来认证身份，下文介绍如何生成</span></span><br><span class="line"><span class="attr">  keep_history:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  on:</span></span><br><span class="line"><span class="attr">    branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>为什么我们要用<code>blog</code>作为<code>repo</code>的名字，而不是<code>&lt;username&gt;.github.io</code>呢？</strong></p>
+<p>因为<code>Github</code>对于一般的<code>repo</code>支持在<code>master</code>、<code>gh-pages</code>、<code>/docs folder in master</code>三种发布方式，但是对于以<code>&lt;username&gt;.github.io</code>的<code>repo</code>只支持从<code>master</code>发布，而我们需要修改的是博客源码，因此将其放在<code>master</code>分支比较合适，因此我们不适用以用户名为开头的<code>repo</code>名</p>
+<p>但是同时我们的博客地址也变成了<code>&lt;username&gt;.github.io/&lt;repo-name&gt;</code>，变成了发布在一个页面的子目录下，因此hexo中也要做出相应的修改。见下文<a href="#Hexo博客目录修改">Hexo博客目录修改</a></p>
+<p><a href="https://help.github.com/en/articles/configuring-a-publishing-source-for-github-pages" target="_blank" rel="noopener">https://help.github.com/en/articles/configuring-a-publishing-source-for-github-pages</a></p>
+</blockquote>
+<h1 id="生成Github密钥（Github-Token）"><a href="#生成Github密钥（Github-Token）" class="headerlink" title="生成Github密钥（Github Token）"></a>生成Github密钥（Github Token）</h1><p>生成Token的页面入口在：左上角头像<code>settings</code>——左侧<code>Develop settings</code>——左侧<code>Personal access token</code></p>
+<p>单击<code>New personal access token</code>填入Note备注信息并勾选<code>repo</code>下的几项权限即可</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g61rqlnu9vj31g00t2dld.jpg" alt="image-20190816195954226"></p>
+<h1 id="将Github-Token传递给Travis"><a href="#将Github-Token传递给Travis" class="headerlink" title="将Github Token传递给Travis"></a>将Github Token传递给<code>Travis</code></h1><p>打开<code>Travis CI</code>的页面，进入对应<code>repo</code>的设置页面，在下方<code>Environment Variables</code>下输入对应的键值对，此处我们的键为<code>GITHUB_TOKEN</code>，值为生成的<code>token</code>单击ADD后<code>Travis</code>就能够使用了</p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g61rvm72wyj322g0ia777.jpg" alt="image-20190816200443727"></p>
+<h1 id="Hexo博客目录修改"><a href="#Hexo博客目录修改" class="headerlink" title="Hexo博客目录修改"></a>Hexo博客目录修改</h1><p>因为我们使用非用户名开头的<code>repo</code>名，我们的Github页面被部署在了<code>&lt;username&gt;.github.io/&lt;repo-name&gt;</code>这个子目录下我们在<code>Hexo</code>的配置也需要做一些修改，此处假设我们的<code>repo</code>名为<code>blog</code></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># _config.yml</span></span><br><span class="line"></span><br><span class="line"><span class="attr">url:</span> <span class="attr">http://&lt;username&gt;.github.io/blog</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/blog/</span></span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Shichao Wong</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://chaoftic.github.io/blog/posts/b50f7193.html">http://chaoftic.github.io/blog/posts/b50f7193.html</a></span>
+                    </p>
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/blog/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/blog/posts/16107.html">Hello World</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Shichao Wong | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+</html>
